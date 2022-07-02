@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
 import './App.css';
 import Header from './components/Header';
-import {Shelve} from "./models/Shelve" 
+import ShelveComponent from "./components/ShelveComponent" 
 
 function App() {
-  const [shelve, setShelve] = useState(new Shelve())
-
   return (
     <div className="App">
       <Header/>
+      <ShelveComponent/>
     </div>
   );
 }
