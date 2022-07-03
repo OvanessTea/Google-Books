@@ -1,16 +1,23 @@
 import React, {FC, useState, useEffect} from 'react'
+import { useDispatch } from 'react-redux';
+import { useActions } from '../hooks/useActions';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { SearchActionTypes } from '../types/search';
 
 const Header:FC = () => {
+    const {ordering, category, searchingValue} = useTypedSelector(state => state.search)
     const [isActiveCat, setIsActiveCat] = useState(false);
     const [isActiveSort, setIsActiveSort] = useState(false);
-    const [searchingValue, setSearchingValue] = useState("");
-    const [ordering, setOrdering] = useState("relevance");
-    const [category, setCategory] = useState("all");
+    const [bookName, setBookName] = useState("");
+    const dispatch = useDispatch()
 
     const submitSearch = (event: any):void => {
         if (event.keyCode === 13) {
-            console.log(event.target.value)
+            dispatch({type: SearchActionTypes.CHANGE_SEARCH_VALUE, payload: event.target.value})
         }
+    }
+    const submitButtonClick = () => {
+        dispatch({type: SearchActionTypes.CHANGE_SEARCH_VALUE, payload: bookName})
     }
     const toggleIsActiveCat = ():void => {
         setIsActiveCat(!isActiveCat);
@@ -19,16 +26,16 @@ const Header:FC = () => {
         setIsActiveSort(!isActiveSort);
     }
     const changeSearchValue = (event: any):void => {
-        setSearchingValue(event.target.value)
+        setBookName(event.target.value)
     }
     const changeCategory = (event: any):void => {
-        setCategory(event.target.value)
+        dispatch({type: SearchActionTypes.CHANGE_CATEGORY, payload: event.target.value})
         toggleIsActiveCat()
     }
     const changeSorting = (event: any):void => {
-        setOrdering(event.target.value)
+        dispatch({type: SearchActionTypes.CHANGE_ORDERING, payload: event.target.value})
         toggleIsActiveSort()
-    }
+    }    
 
     useEffect(() => {
       console.log(`Export data: ${searchingValue}, ${category}, ${ordering}`)
@@ -41,8 +48,8 @@ const Header:FC = () => {
             <h1 className='header__title'>Search for books</h1>
             <div className="header__search-container">
                 <div className="header__textinput">
-                    <input value={searchingValue} type="text" onKeyDown={submitSearch} onChange={changeSearchValue}/>
-                    <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="" onClick={submitSearch}/>
+                    <input value={bookName} type="text" onKeyDown={submitSearch} onChange={changeSearchValue}/>
+                    <button className='header__search-button' onClick={() => submitButtonClick()}></button>
                 </div>
                 <div className="header__filter">
                     <div className="filter__categories">

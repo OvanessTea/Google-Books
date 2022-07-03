@@ -4,41 +4,44 @@ import { useTypedSelector } from '../hooks/useTypedSelector'
 import { useActions } from '../hooks/useActions'
 import BookComponent from './BookComponent'
 import './ShelveComponent.css'
+import { SearchActionTypes } from '../types/search'
 
 const ShelveComponent:FC = () => {
-  const {booksResult, error, loading} = useTypedSelector(state => state.search)
-  // const [totalItems, setTotalItems] = useState<number>(0)
-  // const [booksList, setBooksList] = useState<any[]>([])
+  const {ordering, category, searchingValue, booksResult, totalResults, error, loading, startIndex} = useTypedSelector(state => state.search)
   const fetchData = useActions()
+  const dispatch = useDispatch()
 
+  const loadMore = () => {
+    dispatch({type: SearchActionTypes.SHOW_MORE, payload: (startIndex + 30)})
+  }
+  
   useEffect(() => {
-    fetchData()
-    
-  }, [])
+    fetchData(startIndex, ordering, category, searchingValue)
+  }, [startIndex, ordering, category, searchingValue])
 
-  // useEffect(() => {
-  //   setTotalItems(booksResult[1])
-  //   setBooksList(booksResult[2])
-  // }, [booksResult])
-  
-  
   if (loading) {
-    return <h1>Идет поиск...</h1>
+    return <h1 className="message">Идет поиск...</h1>
   }
   if (error) {
-    return <h1>{error}</h1>
+    return <h1 className="message">{error}</h1>
   }
-
+  
   return (
-    <div className="books-list">
-      {booksResult.map((book) => 
-        <BookComponent key={book.id} 
-          title={book.volumeInfo.title} 
-          categories={book.volumeInfo.categories} 
-          authors={book.volumeInfo.authors} 
-          image={book.volumeInfo.imageLinks.smallThumbnail}/>
-      )}
-    </div>
+    <main>
+      <p className="totalResults">Found {totalResults} results</p>
+      <div className="books-list">
+        {booksResult.map((book: any) => 
+          <BookComponent key={book.id} 
+            title={book.volumeInfo?.title} 
+            categories={book.volumeInfo?.categories} 
+            authors={book.volumeInfo?.authors} 
+            image={book.volumeInfo?.imageLinks?.smallThumbnail}/>
+        )}
+      </div>
+      <button type="button" className="add-button" onClick={() => {
+        loadMore()
+      }}>Load more</button>
+    </main>
   )
 }
 

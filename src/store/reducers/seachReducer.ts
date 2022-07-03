@@ -1,65 +1,61 @@
 import { SearchAction, SearchActionTypes, SearchState } from "../../types/search"
 
 
-
 const initialState: SearchState = {
     booksResult: [],
+    totalResults: 0,
     searchingValue: "",
     ordering: "relevance",
     category: "all",
     error: null,
-    loading: false
+    loading: false,
+    startIndex: 0
 }
 
 export const searchReducer = (state = initialState, action: SearchAction): SearchState => {
     switch(action.type) {
+        case SearchActionTypes.CHANGE_SEARCH_VALUE:
+            return {
+                ...state,
+                booksResult: [],
+                searchingValue: action.payload,
+                loading: true,
+            }
         case SearchActionTypes.CHANGE_CATEGORY:
             return {
+                ...state,
                 booksResult: [],
-                searchingValue: state.searchingValue,
-                ordering: action.payload,
-                category: state.category,
-                error: null,
+                category: action.payload,
                 loading: true,
             }
         case SearchActionTypes.CHANGE_ORDERING:
             return {
+                ...state,
                 booksResult: [],
-                searchingValue: state.searchingValue,
-                ordering: state.ordering,
-                category: action.payload,
-                error: null,
+                ordering: action.payload,
                 loading: true,
             }
         case SearchActionTypes.FETCH_RESULTS:
             return {
-                booksResult: [],
-                searchingValue: state.searchingValue,
-                ordering: state.ordering,
-                category: state.category,
-                error: null,
+                ...state,
                 loading: true,
-
             }
         case SearchActionTypes.FETCH_SUCCESS:
             return {
-                booksResult: action.payload,
-                searchingValue: state.searchingValue,
-                ordering: state.ordering,
-                category: state.category,
-                error: null,
-                loading: false,
-
+                ...state,
+                booksResult: state.booksResult.concat(action.payload[1]),
+                totalResults: action.payload[0],
+                loading: false
             }
         case SearchActionTypes.FETCH_ERROR:
             return {
-                booksResult: [],
-                searchingValue: state.searchingValue,
-                ordering: state.ordering,
-                category: state.category,
+                ...state,
                 error: action.payload,
-                loading: false,
-
+            }
+        case SearchActionTypes.SHOW_MORE:
+            return {
+                ...state,
+                startIndex: action.payload,
             }
         default:
             return state
