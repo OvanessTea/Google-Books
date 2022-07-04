@@ -15,7 +15,7 @@ export enum SearchActionTypes {
     FETCH_RESULTS = "FETCH_RESULTS",
     FETCH_SUCCESS = "FETCH_SUCCESS",
     SHOW_MORE = "SHOW_MORE",
-    CHANGE_SEARCH_VALUE = "CHANGE_SEARCH_VALUE"
+    CHANGE_SEARCH_VALUE = "CHANGE_SEARCH_VALUE",
 }
 
 interface ChangeSeachValueAction {

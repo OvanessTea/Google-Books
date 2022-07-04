@@ -1,6 +1,5 @@
 import React, {FC, useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
-import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { SearchActionTypes } from '../types/search';
 
@@ -39,7 +38,7 @@ const Header:FC = () => {
 
     useEffect(() => {
       console.log(`Export data: ${searchingValue}, ${category}, ${ordering}`)
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ordering, category])
     
 
