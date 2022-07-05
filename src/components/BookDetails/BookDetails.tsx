@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchBookDetails } from '../store/action-creator/fetchBookCard';
+import { fetchBookDetails } from '../../store/action-creator/fetchBookCard';
 import './BookDetails.css'
 
 const BookDetails:FC = () => {

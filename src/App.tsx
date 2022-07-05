@@ -1,8 +1,8 @@
 import './App.css';
-import Header from './components/Header';
-import ShelveComponent from "./components/ShelveComponent";
+import Header from './components/Header/Header';
+import ShelveComponent from "./components/ShelveComponent/ShelveComponent";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import BookDetails from './components/BookDetails';
+import BookDetails from './components/BookDetails/BookDetails';
 
 function App() {
   return (

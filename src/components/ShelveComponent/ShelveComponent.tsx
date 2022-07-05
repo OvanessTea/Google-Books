@@ -1,10 +1,10 @@
 import React, {FC, useEffect} from 'react'
 import { useDispatch } from 'react-redux'
-import { useTypedSelector } from '../hooks/useTypedSelector'
-import { useActions } from '../hooks/useActions'
-import BookComponent from './BookComponent'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { useActions } from '../../hooks/useActions'
+import BookComponent from '../BookComponent/BookComponent'
 import './ShelveComponent.css'
-import { SearchActionTypes } from '../types/search'
+import { SearchActionTypes } from '../../types/search'
 
 const ShelveComponent:FC = () => {
   const {

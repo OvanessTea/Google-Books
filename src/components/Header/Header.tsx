@@ -1,7 +1,8 @@
 import React, {FC, useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import { SearchActionTypes } from '../types/search';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { SearchActionTypes } from '../../types/search';
+import "./Header.css"
 
 const Header:FC = () => {
     const {ordering, category, searchingValue} = useTypedSelector(state => state.search)
