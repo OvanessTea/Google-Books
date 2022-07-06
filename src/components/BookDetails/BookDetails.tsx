@@ -1,6 +1,8 @@
 import React, {FC, useEffect, useState} from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchBookDetails } from '../../store/action-creator/fetchBookCard';
+import { SearchActionTypes } from '../../types/search';
 import './BookDetails.css'
 
 const BookDetails:FC = () => {
@@ -12,11 +14,17 @@ const BookDetails:FC = () => {
     const [categories, setCategories] = useState<string[]>([]);
     const [authors, setAuthors] = useState<string[]>([]);
 
+    const dispatch = useDispatch()
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchBookDetails(id).then((data: object) => setBookCard([data]))
-    }, [id])    
+    }, [id])
+    
+    const goBack = () => {
+        dispatch({type: SearchActionTypes.RESET_SEARCH})
+        navigate(-1)
+    }
     
     useEffect(() => {
         if (bookCard[0] !== null) {
@@ -32,7 +40,7 @@ const BookDetails:FC = () => {
         return <div className='error-message'>
             <h1 className="message">An error occurred while searching for a book...</h1>
             <div className="card__button-container card__error-button-container">
-                <button className="card__button card__error-button" onClick={() => navigate(-1)}>
+                <button className="card__button card__error-button" onClick={() => goBack()}>
                     Go back
                 </button>
             </div>
@@ -47,7 +55,7 @@ const BookDetails:FC = () => {
             </div>
             <div className="card__text-container">
                 <div className="card__button-container">
-                    <button className="card__button" onClick={() => navigate(-1)}>
+                    <button className="card__button" onClick={() => goBack()}>
                         Go back
                     </button>
                 </div>

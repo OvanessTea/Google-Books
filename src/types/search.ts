@@ -16,6 +16,7 @@ export enum SearchActionTypes {
     FETCH_SUCCESS = "FETCH_SUCCESS",
     SHOW_MORE = "SHOW_MORE",
     CHANGE_SEARCH_VALUE = "CHANGE_SEARCH_VALUE",
+    RESET_SEARCH = "RESET_SEARCH"
 }
 
 interface ChangeSeachValueAction {
@@ -45,6 +46,9 @@ interface ShowMore {
     type: SearchActionTypes.SHOW_MORE;
     payload: number;
 }
+interface ResetSearch {
+    type: SearchActionTypes.RESET_SEARCH;
+}
 
 export type SearchAction = (
     ChangeSeachValueAction |
@@ -53,5 +57,6 @@ export type SearchAction = (
     FetchErrorAction | 
     FetchResultAction | 
     FetchSuccessAction |
-    ShowMore
+    ShowMore |
+    ResetSearch
 )

@@ -57,6 +57,11 @@ export const searchReducer = (state = initialState, action: SearchAction): Searc
                 ...state,
                 startIndex: action.payload,
             }
+        case SearchActionTypes.RESET_SEARCH:
+            return {
+                ...state,
+                booksResult: [],
+            }
         default:
             return state
     }

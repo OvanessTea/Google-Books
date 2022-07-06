@@ -30,26 +30,28 @@ const ShelveComponent:FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startIndex, ordering, category, searchingValue])
 
+  
+
   if (loading) {
     return <h1 className="message">Loading...</h1>
   }
   if (error) {
     return <h1 className="message">{error}</h1>
   }
-  
+
   return (
     <main>
       <p className="totalResults">Found {totalResults} results</p>
       <div className="books-list">
-        {booksResult.map((book: any) => 
-          <BookComponent key={book.id}
-            id={book.id}
-            title={book.volumeInfo?.title} 
-            categories={book.volumeInfo?.categories} 
-            authors={book.volumeInfo?.authors} 
-            image={book.volumeInfo?.imageLinks?.smallThumbnail}
+        {booksResult[0] !== undefined ? booksResult.map((book: any) => 
+          <BookComponent key={book?.id}
+            id={book?.id}
+            title={book?.volumeInfo?.title} 
+            categories={book?.volumeInfo?.categories} 
+            authors={book?.volumeInfo?.authors} 
+            image={book?.volumeInfo?.imageLinks?.smallThumbnail}
           />
-        )}
+        ) : <h1 className="message">Books were not found</h1>}
       </div>
       <button type="button" className="add-button" onClick={() => {
         loadMore()
@@ -59,3 +61,4 @@ const ShelveComponent:FC = () => {
 }
 
 export default ShelveComponent
+
