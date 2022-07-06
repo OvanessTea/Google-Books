@@ -1,5 +1,6 @@
 import React, {FC, useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { SearchActionTypes } from '../../types/search';
 import "./Header.css"
@@ -11,12 +12,16 @@ const Header:FC = () => {
     const [bookName, setBookName] = useState("");
     const dispatch = useDispatch()
 
+    const navigate = useNavigate();
+
     const submitSearch = (event: any):void => {
         if (event.keyCode === 13) {
+            navigate("./")
             dispatch({type: SearchActionTypes.CHANGE_SEARCH_VALUE, payload: event.target.value})
         }
     }
     const submitButtonClick = () => {
+        navigate("./")
         dispatch({type: SearchActionTypes.CHANGE_SEARCH_VALUE, payload: bookName})
     }
     const toggleIsActiveCat = ():void => {
@@ -29,18 +34,15 @@ const Header:FC = () => {
         setBookName(event.target.value)
     }
     const changeCategory = (event: any):void => {
+        navigate("./")
         dispatch({type: SearchActionTypes.CHANGE_CATEGORY, payload: event.target.value})
         toggleIsActiveCat()
     }
     const changeSorting = (event: any):void => {
+        navigate("./")
         dispatch({type: SearchActionTypes.CHANGE_ORDERING, payload: event.target.value})
         toggleIsActiveSort()
     }    
-
-    useEffect(() => {
-      console.log(`Export data: ${searchingValue}, ${category}, ${ordering}`)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ordering, category])
     
 
     return (
