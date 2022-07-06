@@ -49,6 +49,7 @@ main {
 .book-card__title {
     margin-bottom: 10px;
     color: #000;
+    word-wrap: break-word;
 }
 .book-card__label {
     max-width: inherit;
