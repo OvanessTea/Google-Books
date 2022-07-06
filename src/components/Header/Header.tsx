@@ -1,4 +1,4 @@
-import React, {FC, useState, useEffect} from 'react'
+import React, {FC, useState} from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -6,7 +6,7 @@ import { SearchActionTypes } from '../../types/search';
 import "./Header.css"
 
 const Header:FC = () => {
-    const {ordering, category, searchingValue} = useTypedSelector(state => state.search)
+    const {ordering, category} = useTypedSelector(state => state.search)
     const [isActiveCat, setIsActiveCat] = useState(false);
     const [isActiveSort, setIsActiveSort] = useState(false);
     const [bookName, setBookName] = useState("");
